@@ -3,21 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тестовый сайт</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-    </style>
+    <title>Telegram Style Website</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>Тест</h1>
+<body class="light-theme">
+    <header>
+        <button id="theme-toggle" class="theme-button">🌙</button> <!-- Кнопка для смены темы -->
+    </header>
+    <div class="container">
+       
+        
+        <div class="balance-display" id="balance-display">Баланс: 1000₽</div>
+        
+        <main>
+            <p>Доступные призы:</p>
+        </main>
+    </div>
+
+    <button class="fixed-button">Больше монет💰</button>
+    
+    <main>
+        <div id="prizes">
+            <div class="prize" data-price="300">
+                <img src="C:\Users\user\Pictures\я.jpg" alt="Приз 1" class="prize-image">
+                Приз 1 (300₽)  <button class="buy-button">Купить</button>
+            </div>
+            <div class="prize" data-price="500">
+                <img src="C:\Users\user\Downloads\5384209399729477879.jpg" alt="Приз 2" class="prize-image">
+                Приз 2 (500₽) <button class="buy-button">Купить</button>
+            </div>
+            <div class="prize" data-price="800">
+                <img src="C:\Users\user\Downloads\5393148184450157825.jpg" alt="Приз 3" class="prize-image">
+                Приз 3 (800₽) <button class="buy-button">Купить</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
+
+<style>
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f5f5f5;
+}
+.content {
+            height: 1500px; /* Достаточная высота для скролла */
+            background: linear-gradient(to bottom, #f0f0f0, #c0c0c0);
+            padding: 20px;
+        }
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Новый стиль для блока с балансом */
+.balance-display {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 48px; /* Увеличенный размер текста для баланса */
+    font-weight: bold;
+}
+
+/* Темная тема */
+body.dark-theme {
+    height: 1500px; /* Достаточная высота для скролла */
+    background: linear-gradient(to bottom, #5c5c5c, #3e3e3e);
+    color: #ffffff;
+}
+
+.dark-theme header {
+    background-color: #333;
+}
+
+.dark-theme .balance-display {
+    background-color: #3b3b3b; /* Серый цвет для темной темы */
+    color: #ffffff;
+}
+
+/* Светлая тема */
+body.light-theme {
+    height: 1500px; /* Достаточная высота для скролла */
+    background: linear-gradient(to bottom, #f0f0f0, #c0c0c0);
+    color: #333;
+}
+
+.light-theme header {
+    background-color: #f8f8f8;
+}
+
+.light-theme .balance-display {
+    background-color: #b3e0ff; /* Голубой цвет для светлой темы */
+    color: #333;
+}
+
+/* Стили для кнопок */
+button {
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+
+#prizes {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.prize {
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #72a9e4;
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.prize-image {
+    width: 50px; /* Можно изменить размер изображения */
+    height: 50px; /* Можно изменить размер изображения */
+    margin-right: 10px;
+}
+
+.buy-button {
+    background-color: #28a745;
+    color: white;
+    border: 10px;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 30px; /* Отступ с со всех сторон */
+}
+
+.buy-button:hover {
+    background-color: #218838;
+}
+
+.fixed-button {
+            position: fixed;
+            bottom: 20px; /* Расстояние от нижней грани экрана */
+            left: 50%;
+            transform: translateX(-50%); /* Центрирование кнопки */
+            background-color: #007bff; /* Цвет кнопки */
+            color: white; /* Цвет текста */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .fixed-button:hover {
+            background-color: #0056b3; /* Цвет кнопки при наведении */
+        }
+</style>
+
+<script>
+const themeToggleButton = document.getElementById('theme-toggle');
+const body = document.body;
+let balance = 1000; // Начальный баланс
+
+// Обработка покупки призов
+document.querySelectorAll('.buy-button').forEach(button => {
+    button.addEventListener('click', (event) => {
+        const prizeElement = event.target.parentElement;
+        const prizePrice = parseInt(prizeElement.dataset.price);
+        
+        if (balance >= prizePrice) {
+            balance -= prizePrice; // Уменьшаем баланс
+            document.getElementById('balance-display').innerText = `Баланс: ${balance}₽`;
+            alert(`Вы купили ${prizeElement.textContent.trim()} за ${prizePrice}₽!`);
+        } else {
+            alert('Недостаточно средств для покупки этого приза.');
+        }
+    });
+});
+
+// Проверяем, сохранена ли тема в локальном хранилище
+if (localStorage.getItem('theme') === 'dark') {
+    body.classList.remove('light-theme');
+    body.classList.add('dark-theme');
+    themeToggleButton.textContent = '☀️'; // Устанавливаем солнце для темной темы
+} else {
+    themeToggleButton.textContent = '🌙'; // Устанавливаем луну для светлой темы
+}
+
+// Событие для переключения тем
+themeToggleButton.addEventListener('click', () => {
+    body.classList.toggle('dark-theme');
+    body.classList.toggle('light-theme');
+
+    // Сохранение текущей темы в локальном хранилище
+    if (body.classList.contains('dark-theme')) {
+        localStorage.setItem('theme', 'dark');
+        themeToggleButton.textContent = '☀️'; // Устанавливаем солнце для темной темы
+    } else {
+        localStorage.setItem('theme', 'light');
+        themeToggleButton.textContent = '🌙'; // Устанавливаем луну для светлой темы
+    }
+});
+</script>
